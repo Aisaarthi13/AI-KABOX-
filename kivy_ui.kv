@@ -1,0 +1,147 @@
+ScreenManager:
+    HomeScreen:
+    ChatScreen:
+
+<HomeScreen>:
+    name: 'home'
+    MDFloatLayout:
+        md_bg_color: [0.96, 0.95, 0.98, 1]
+        
+        MDCard:
+            size_hint: (1, 0.40)
+            pos_hint: {"top": 1}
+            md_bg_color: [0.41, 0.14, 0.62, 1]
+            radius: [0, 0, 40, 40]
+            elevation: 4
+            MDFloatLayout:
+                MDLabel:
+                    text: "AI KABOX PRO"
+                    font_style: "H4"
+                    bold: True
+                    text_color: [1, 1, 1, 1]
+                    theme_text_color: "Custom"
+                    halign: "center"
+                    pos_hint: {"center_y": 0.65}
+                MDLabel:
+                    text: "Premium Digital Farming Ecosystem ✨"
+                    font_style: "Subtitle1"
+                    text_color: [0.9, 0.82, 1, 1]
+                    theme_text_color: "Custom"
+                    halign: "center"
+                    pos_hint: {"center_y": 0.45}
+
+        MDCard:
+            size_hint: (0.92, 0.18)
+            pos_hint: {"center_x": .5, "center_y": .40}
+            radius: [24, 24, 24, 24]
+            elevation: 3
+            md_bg_color: [1, 1, 1, 1]
+            ripple_behavior: True
+            on_release: app.root.current = 'chat'
+            padding: dp(20)
+            spacing: dp(15)
+            
+            MDIcon:
+                icon: "leaf"
+                font_size: dp(44)
+                theme_text_color: "Custom"
+                text_color: [0.41, 0.14, 0.62, 1]
+                size_hint_x: None
+                width: dp(44)
+                pos_hint: {"center_y": .5}
+                
+            MDBoxLayout:
+                orientation: 'vertical'
+                spacing: dp(2)
+                pos_hint: {"center_y": .5}
+                MDLabel:
+                    text: "Start AI Chat"
+                    font_style: "H6"
+                    bold: True
+                    theme_text_color: "Primary"
+                MDLabel:
+                    text: "Detect diseases & check Mandi bhav"
+                    font_style: "Caption"
+                    theme_text_color: "Secondary"
+
+<ChatScreen>:
+    name: 'chat'
+    MDFloatLayout:
+        md_bg_color: [0.97, 0.96, 0.99, 1]
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            pos_hint: {"top": 1}
+            
+            MDTopAppBar:
+                title: "KABOX AI Engine"
+                md_bg_color: [0.41, 0.14, 0.62, 1]
+                left_action_items: [["arrow-left", lambda x: app.go_back_home()]]
+                elevation: 2
+            
+            ScrollView:
+                id: chat_scroll
+                do_scroll_x: False
+                MDBoxLayout:
+                    id: chat_container
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: dp(15)
+                    spacing: dp(15)
+            
+            MDSpinner:
+                id: chat_spinner
+                size_hint: None, None
+                size: dp(35), dp(35)
+                pos_hint: {'center_x': .5}
+                active: False
+                palette: [[0.41, 0.14, 0.62, 1]]
+            
+            MDBoxLayout:
+                id: attachment_bar
+                orientation: 'horizontal'
+                size_hint_y: None
+                height: 0
+                padding: [dp(15), dp(8), dp(15), dp(8)]
+                spacing: dp(12)
+                md_bg_color: [0.92, 0.88, 0.95, 1]
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: None
+                height: dp(70)
+                padding: [dp(10), dp(10), dp(10), dp(10)]
+                spacing: dp(8)
+                md_bg_color: [1, 1, 1, 1]
+                
+                MDIconButton:
+                    icon: "camera-plus"
+                    theme_text_color: "Custom"
+                    text_color: [0.41, 0.14, 0.62, 1]
+                    pos_hint: {"center_y": .5}
+                    on_release: app.open_file_manager()
+                    
+                MDCard:
+                    radius: [25, 25, 25, 25]
+                    elevation: 0
+                    md_bg_color: [0.94, 0.93, 0.96, 1]
+                    padding: [dp(16), 0, dp(16), 0]
+                    pos_hint: {"center_y": .5}
+                    
+                    MDTextField:
+                        id: chat_input
+                        hint_text: "Fasal ke baare me likhein..."
+                        line_color_normal: [0,0,0,0]
+                        line_color_focus: [0,0,0,0]
+                        multiline: False
+                        pos_hint: {"center_y": .5}
+                        on_text_validate: app.send_chat()
+                
+                MDIconButton:
+                    icon: "send-circle"
+                    user_font_size: "35sp"
+                    theme_text_color: "Custom"
+                    text_color: [0.41, 0.14, 0.62, 1]
+                    pos_hint: {"center_y": .5}
+                    on_release: app.send_chat()
