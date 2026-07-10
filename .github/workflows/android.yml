@@ -9,26 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Updated checkout to v4
     - uses: actions/checkout@v4
 
-    # Updated setup-python to v5
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
     - name: Install Dependencies
+      # Yahan se libmql-dev hata diya gaya hai
       run: |
         sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev tk-dev libmql-dev
+        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev tk-dev
         pip install --upgrade pip
         pip install buildozer cython virtualenv
 
     - name: Build with Buildozer
       run: buildozer android debug
 
-    # MAIN FIX: Updated upload-artifact to v4
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
